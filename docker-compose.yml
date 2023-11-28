@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:14
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  gateway_pos:
+    container_name: gateway_pos
+    image: localhost/gateway_pos
+    restart: always
+    build:
+      context: ./gateway_pos
+      dockerfile: Dockerfile
+    volumes:
+      - ./gateway_pos/src:/app/src:ro
+    privileged: true
+    ports:
+      - 3000:3000
+    environment:
+      - PORT=3000
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - postgres
