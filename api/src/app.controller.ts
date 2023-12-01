@@ -19,6 +19,12 @@ import {
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  // Hello world
+  @Get('/health')
+  getHello() {
+    return { message: 'Hello world' };
+  }
+
   // Generate a token
   @Post('/tokens')
   generateToken(@Body(new PaymentsOwnPipe()) paymentDto: PaymentDto): any {

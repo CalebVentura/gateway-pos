@@ -1,3 +1,35 @@
 eksctl create cluster --name development --dry-run
 eksctl version
 kubectl version --client --output=yaml|json
+
+// aws cli
+aws configure
+aws sts get-caller-identity
+aws eks --region sa-east-1 describe-cluster --name development
+aws eks --region sa-east-1 delete-cluster --name development
+aws eks list-clusters --region us-east-2
+
+// kubectl
+kubectl get all
+kubectl get nodes
+kubectl get events --all-namespaces
+
+kubectl config use-context docker-desktop
+kubectl config get-contexts
+kubectl config delete-context kalidevs1-eks
+kubectl config current-context
+kubectl config view
+
+kubectl apply -f .\k8s\deployments\culqi-redis-deployment.yaml
+kubectl apply -f .\k8s\services\culqi_redis-service.yaml
+
+kubectl get pods
+kubectl get services
+
+// eksctl
+eksctl get nodegroups --clusters kalidev-cluster
+eksctl get clusters
+eksctl get iamidentitymapping --cluster kalidevs1-eks --region us-east-2
+
+// Convertir de ddocker-compose a manifiestoos de kubernetes
+kompose convert

@@ -27,7 +27,7 @@ spec:
       containers:
         - args:
             - redis-server
-          image: redis
+          image: 636920964135.dkr.ecr.us-east-2.amazonaws.com/redis:latest
           name: culqi-redis
           ports:
             - containerPort: 6379

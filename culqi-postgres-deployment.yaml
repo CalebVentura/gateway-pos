@@ -30,7 +30,7 @@ spec:
               value: culqi_pg
             - name: POSTGRES_USER
               value: postgres
-          image: postgres:14
+          image: 636920964135.dkr.ecr.us-east-2.amazonaws.com/postgres:latest
           name: culqi-postgres
           ports:
             - containerPort: 5432

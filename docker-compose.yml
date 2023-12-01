@@ -1,40 +1,40 @@
 version: "3.9"
 services:
-  culqi_postgres:
+  culqi-postgres:
     container_name: culqi-postgres
-    image: postgres:14
+    image: 636920964135.dkr.ecr.us-east-2.amazonaws.com/postgres:latest
     ports:
       - 5432:5432
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=culqi_pg
 
-  culqi_redis:
+  culqi-redis:
     container_name: culqi-redis
-    image: redis
+    image: 636920964135.dkr.ecr.us-east-2.amazonaws.com/redis:latest
     command: redis-server
     ports:
       - 6379:6379
 
-  culqi_gateway_pos:
+  culqi-gateway-pos:
     container_name: culqi-gateway-pos
-    image: localhost/gateway_pos
+    image: 636920964135.dkr.ecr.us-east-2.amazonaws.com/gatewaypos:latest
     restart: always
     build:
       context: ./api
       dockerfile: Dockerfile
-    volumes:
-      - ./api/src:/app/src:ro
+    # volumes:
+    #   - ./api/src:/app/src:ro
     privileged: true
     ports:
       - 3000:3000
     environment:
       - PORT=3000
-      - POSTGRES_HOST=culqi_postgres
+      - POSTGRES_HOST=culqi-postgres
       - POSTGRES_PORT=5432
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=culqi_pg
       - REDIS_URL=redis://culqi-redis:6379
     depends_on:
-      - culqi_postgres
-      - culqi_redis
+      - culqi-postgres
+      - culqi-redis

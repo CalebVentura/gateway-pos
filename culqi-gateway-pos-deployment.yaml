@@ -13,8 +13,7 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: culqi-gateway-pos
-  strategy:
-    type: Recreate
+  strategy: {}
   template:
     metadata:
       annotations:
@@ -30,7 +29,7 @@ spec:
             - name: PORT
               value: "3000"
             - name: POSTGRES_HOST
-              value: culqi_postgres
+              value: culqi-postgres
             - name: POSTGRES_PASSWORD
               value: culqi_pg
             - name: POSTGRES_PORT
@@ -39,7 +38,7 @@ spec:
               value: postgres
             - name: REDIS_URL
               value: redis://culqi-redis:6379
-          image: localhost/gateway_pos
+          image: 636920964135.dkr.ecr.us-east-2.amazonaws.com/gatewaypos:latest
           name: culqi-gateway-pos
           ports:
             - containerPort: 3000
@@ -48,14 +47,5 @@ spec:
           resources: {}
           securityContext:
             privileged: true
-          volumeMounts:
-            - mountPath: /app/src
-              name: culqi-gateway-pos-claim0
-              readOnly: true
       restartPolicy: Always
-      volumes:
-        - name: culqi-gateway-pos-claim0
-          persistentVolumeClaim:
-            claimName: culqi-gateway-pos-claim0
-            readOnly: true
 status: {}
