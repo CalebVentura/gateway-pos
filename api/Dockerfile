@@ -1,6 +1,7 @@
 # FROM node:18
 FROM node:18-alpine3.16
 WORKDIR /app
+COPY . .
 RUN ls -la
 RUN pwd
 COPY tsconfig*.json ./
