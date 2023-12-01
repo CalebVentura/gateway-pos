@@ -1,0 +1,3 @@
+eksctl create cluster --name development --dry-run
+eksctl version
+kubectl version --client --output=yaml|json
