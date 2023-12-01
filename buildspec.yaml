@@ -7,7 +7,7 @@ phases:
   build:
     commands:
       - docker pull postgres:14
-      - docker tag postgres:latest 636920964135.dkr.ecr.us-east-2.amazonaws.com/postgres:latest
+      - docker tag postgres:14 636920964135.dkr.ecr.us-east-2.amazonaws.com/postgres:latest
       - docker pull redis
       - docker tag redis:latest 636920964135.dkr.ecr.us-east-2.amazonaws.com/redis:latest
       - docker build -t gatewaypos -f ./api/Dockerfile .
