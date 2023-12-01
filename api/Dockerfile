@@ -1,5 +1,5 @@
-# FROM node:18
-FROM node:18-alpine3.16
+FROM node:18
+# FROM node:18-alpine3.16
 WORKDIR /app
 RUN ls -la
 RUN pwd
