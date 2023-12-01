@@ -1,31 +1,40 @@
 version: "3.9"
 services:
-  postgres:
-    container_name: postgres
+  culqi_postgres:
+    container_name: culqi-postgres
     image: postgres:14
     ports:
-      - "5432:5432"
+      - 5432:5432
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD=culqi_pg
 
-  gateway_pos:
-    container_name: gateway_pos
+  culqi_redis:
+    container_name: culqi-redis
+    image: redis
+    command: redis-server
+    ports:
+      - 6379:6379
+
+  culqi_gateway_pos:
+    container_name: culqi-gateway-pos
     image: localhost/gateway_pos
     restart: always
     build:
-      context: ./gateway_pos
+      context: ./api
       dockerfile: Dockerfile
     volumes:
-      - ./gateway_pos/src:/app/src:ro
+      - ./api/src:/app/src:ro
     privileged: true
     ports:
       - 3000:3000
     environment:
       - PORT=3000
-      - POSTGRES_HOST=postgres
+      - POSTGRES_HOST=culqi_postgres
       - POSTGRES_PORT=5432
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD=culqi_pg
+      - REDIS_URL=redis://culqi-redis:6379
     depends_on:
-      - postgres
+      - culqi_postgres
+      - culqi_redis
